@@ -4,7 +4,7 @@ This is the final project for the Computaional Phsyics (PHY329) Fall 2025.
 
 # Authors:
 
-- Nir Miller
+- Nirron Miller
 - Jason May
 - Olivia Castillo
 
