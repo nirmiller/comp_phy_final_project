@@ -22,7 +22,7 @@ class ClassicIsing:
 
         self.ExternalMagneticField = Mf_External  
     
-    def update(self, update_rule):
+    def updateGrid(self, update_rule):
 
         """
         Updates grid based on an update_rule.
@@ -30,6 +30,14 @@ class ClassicIsing:
         Parameters
             update_rule (method): Takes in an update rule to change grid between timesteps
         """
+
+        for i in range(self.grid.n_x):
+            for j in range(self.grid.n_y):
+                point = self.grid.getPoint(i, j)
+                update_rule(point)
+
+        self.grid.grid_history.append(self.grid.grid.copy())
+
 
         return
     
@@ -46,18 +54,38 @@ class ClassicIsing:
             point (Classic Point Object): as a classical Ising model point with a spin
         """
 
-        return 
+        if point.changeInEnergy(self.effective_field(point.x, point.y, self.ferromagnetivity, self.ExternalMagneticField)) < 0:
+            point.changeSpin(point.spin * -1)
+        else:
+            prob = np.exp(-point.changeInEnergy(self.effective_field(point.x, point.y, self.ferromagnetivity, self.ExternalMagneticField)) / (self.Boltzmann * self.temperature))
+            rand = np.random.rand()
+            if rand < prob:
+                point.changeSpin(point.spin * -1)
+
     
     def magnetization(self):
 
         return 
     
-    def effective_field(self, grid, i, j, J=1.0, h=0.0):
-        
-        return #B_eff
+    def effective_field(self, i, j, J=1.0, h=0.0):
 
-    def spin_energy(self, grid, i, j, J=1.0, h=0.0):
-        s = grid[i,j]
-        B_eff = self.effective_field(grid, i, j, J, h)
-        return -s * B_eff
+        """
+        Calculates the effect magnetic field on a given spin based off its neighbors. 
+        Here we implement the Von Nuemenn Nearest neighrbor interaction.
+
+        Parameters:
+            grid (np.array): 2D array representing the grid of spins
+            i (int): x-coordinate of the spin
+            j (int): y-coordinate of the spin
+            J=1.0 (float): Coupling constant
+            h=0.0 (float): External magnetic field
+        """
+
+        B_eff = self.grid.grid.getPoint(i+1, j).spin + self.grid.grid.getPoint(i-1, j).spin + self.grid.grid.getPoint(i, j+1).spin + self.grid.grid.getPoint(i, j-1).spin
+        B_eff *= J
+        B_eff += h
+        
+        return B_eff
+
+
     

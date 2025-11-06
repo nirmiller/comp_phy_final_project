@@ -27,7 +27,7 @@ class Grid:
 
         return grid
 
-    def getPoint(self, point):
+    def getPoint(self, x_pos, y_pos):
 
         """
         Here we define the getPoint method for the Grid class. This methods restrieves a requested point
@@ -38,15 +38,7 @@ class Grid:
             point (Classic Point Object): as a classical Ising model point with a spin
         """
 
-        x_pos = point.x
-        y_pos = point.y
-
         if 0 <= x_pos < self.n_x and 0 <= y_pos < self.n_y:
             return self.grid[x_pos, y_pos]
         else:
             return None
-
-    def update_grid(self, update_rule):
-
-        pass 
-
