@@ -11,7 +11,7 @@ class ClassicElectron:
         self.G_factor = 2
 
         # For electrons 
-        self.Bohr_Magneton = 9.274*(10**-24) 
+        self.Bohr_Magneton = 1#9.274*(10**-24) 
 
 
     def getSpin(self):
@@ -25,7 +25,6 @@ class ClassicElectron:
         return self.spin*self.FermionSpin*self.G_factor*self.Bohr_Magneton*effectiveMagneticField
         
     def changeInEnergy(self, effectiveMagneticField):
-
-        newSpin = self.spin*(-1)
-
-        return (newSpin - self.spin)*self.FermionSpin*self.G_factor*self.Bohr_Magneton*effectiveMagneticField
+        mu_eff = self.FermionSpin * self.G_factor * self.Bohr_Magneton
+        deltaE = 2 * self.spin * mu_eff * effectiveMagneticField
+        return deltaE

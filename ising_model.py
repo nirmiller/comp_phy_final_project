@@ -17,7 +17,7 @@ class ClassicIsing:
         self.grid = grid
         self.temperature = temperature
         self.ferromagnetivity = ferromagnetivity
-        self.Boltzmann = 1.380649*(10**-23)
+        self.Boltzmann = 1#1.380649*(10**-23)
 
 
         self.ExternalMagneticField = Mf_External  
@@ -36,7 +36,7 @@ class ClassicIsing:
                 point = self.grid.getPoint(i, j)
                 update_rule(point)
 
-        self.grid.grid_history.append(self.grid.grid.copy())
+        self.grid.grid_history.append(self.grid)
 
 
         return
@@ -80,12 +80,33 @@ class ClassicIsing:
             J=1.0 (float): Coupling constant
             h=0.0 (float): External magnetic field
         """
+        B_eff = 0.0
 
-        B_eff = self.grid.grid.getPoint(i+1, j).spin + self.grid.grid.getPoint(i-1, j).spin + self.grid.grid.getPoint(i, j+1).spin + self.grid.grid.getPoint(i, j-1).spin
+        if self.grid.getPoint(i+1, j) != None:
+            B_eff += self.grid.getPoint(i+1, j).spin 
+        if self.grid.getPoint(i-1, j) != None:
+            B_eff += self.grid.getPoint(i-1, j).spin
+        if self.grid.getPoint(i, j+1) != None:
+            B_eff += self.grid.getPoint(i, j+1).spin
+        if self.grid.getPoint(i, j-1) != None:
+            B_eff += self.grid.getPoint(i, j-1).spin
+
         B_eff *= J
         B_eff += h
         
         return B_eff
+
+    def runSimulation(self, n_steps):
+
+        """
+        Runs the Ising model simulation for a given number of steps.
+
+        Parameters:
+            n_steps (int): Number of simulation steps to run
+        """
+
+        for step in range(n_steps):
+            self.updateGrid(self.metropolis)
 
 
     

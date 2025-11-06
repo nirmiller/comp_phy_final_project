@@ -42,3 +42,20 @@ class Grid:
             return self.grid[x_pos, y_pos]
         else:
             return None
+
+    def output(self):
+        
+        """
+        Outputs the current grid as a 2D array of spins. 
+
+        Returns
+            grid_spins (2D np.array): 2D array of spins representing the current grid state
+        """
+
+        grid_spins = np.zeros((self.n_x, self.n_y))
+
+        for i in range(self.n_x):
+            for j in range(self.n_y):
+                grid_spins[i, j] = self.grid[i, j].spin
+
+        return grid_spins
