@@ -36,7 +36,8 @@ class ClassicIsing:
         for i in range(self.grid.n_x):
             for j in range(self.grid.n_y):
                 point = self.grid.getPoint(i, j)
-                update_rule(point)
+                if point != None:
+                    update_rule(point)
 
         self.grid.grid_history.append(self.grid)
 
@@ -84,13 +85,13 @@ class ClassicIsing:
         """
         B_eff = 0.0
 
-        if self.grid.getPoint(i+1, j) != None:
+        if self.grid.getPoint(i+1, j) is not None:
             B_eff += self.grid.getPoint(i+1, j).spin 
-        if self.grid.getPoint(i-1, j) != None:
+        if self.grid.getPoint(i-1, j) is not None:
             B_eff += self.grid.getPoint(i-1, j).spin
-        if self.grid.getPoint(i, j+1) != None:
+        if self.grid.getPoint(i, j+1) is not None:
             B_eff += self.grid.getPoint(i, j+1).spin
-        if self.grid.getPoint(i, j-1) != None:
+        if self.grid.getPoint(i, j-1) is not None:
             B_eff += self.grid.getPoint(i, j-1).spin
 
         B_eff *= J

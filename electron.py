@@ -1,6 +1,6 @@
 
 class ClassicElectron:
-    def __init__(self, y, x, spin):
+    def __init__(self, x, y, spin):
 
         self.FermionSpin = 1/2
         self.x = x
