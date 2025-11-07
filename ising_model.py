@@ -15,9 +15,11 @@ class ClassicIsing:
     def __init__(self, grid, temperature, ferromagnetivity, Mf_External):
 
         self.grid = grid
+
+        self.grid.grid_history.append(self.grid)
         self.temperature = temperature
         self.ferromagnetivity = ferromagnetivity
-        self.Boltzmann = 1#1.380649*(10**-23)
+        self.Boltzmann = 1.380649*(10**-23)
 
 
         self.ExternalMagneticField = Mf_External  

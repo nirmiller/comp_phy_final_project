@@ -11,7 +11,7 @@ class ClassicElectron:
         self.G_factor = 2
 
         # For electrons 
-        self.Bohr_Magneton = 1#9.274*(10**-24) 
+        self.Bohr_Magneton = 9.274*(10**-24) 
 
 
     def getSpin(self):
