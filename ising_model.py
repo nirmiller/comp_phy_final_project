@@ -1,5 +1,5 @@
 import numpy as np
-
+import copy
 
 class ClassicIsing: 
 
@@ -16,7 +16,6 @@ class ClassicIsing:
 
         self.grid = grid
 
-        self.grid.grid_history.append(self.grid)
         self.temperature = temperature
         self.ferromagnetivity = ferromagnetivity
         self.Boltzmann = 1.380649*(10**-23)
@@ -37,12 +36,13 @@ class ClassicIsing:
             for j in range(self.grid.n_y):
                 point = self.grid.getPoint(i, j)
                 if point != None:
-                    update_rule(point)
+                    update_rule(self.grid.getPoint(i, j))
 
-        self.grid.grid_history.append(self.grid)
+        self.grid.grid_history.append(copy.deepcopy(self.grid.grid))
 
 
-        return
+
+        
     
     def metropolis(self, point):
 

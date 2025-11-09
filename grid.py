@@ -1,5 +1,5 @@
 import numpy as np
-
+import copy 
 class Grid:
 
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
@@ -12,11 +12,14 @@ class Grid:
         self.n_y = n_y
 
         if random_init:
-            self.grid = self.initalize_grid()
-            self.grid_history = []
+            the_grid = self.initalize_grid()
+            self.grid = the_grid
+            self.grid_history = [copy.deepcopy(the_grid)]
         else:
             self.grid = loadGrid
             self.grid_history = loadGrid.grid_history
+
+
 
     def initalize_grid(self):
         spins = np.random.choice([-1, 1], size=(self.n_x, self.n_y))
@@ -43,7 +46,7 @@ class Grid:
         else:
             return None
 
-    def output(self):
+    def output(grid):
         
         """
         Outputs the current grid as a 2D array of spins. 
@@ -52,11 +55,11 @@ class Grid:
             grid_spins (2D np.array): 2D array of spins representing the current grid state
         """
 
-        grid_spins = np.zeros((self.n_x, self.n_y))
+        grid_spins = np.zeros(grid.shape)
 
-        for i in range(self.n_x):
-            for j in range(self.n_y):
-                grid_spins[i, j] = self.grid[i, j].spin
+        for i in range(grid_spins.shape[0]):
+            for j in range(grid_spins.shape[1]):
+                grid_spins[i, j] = grid[i, j].spin
         return grid_spins
     
 
@@ -131,3 +134,76 @@ class HoleGrid(Grid):
             value = self.grid[x_pos, y_pos]
 
             return None if value.spin == 0 else value
+
+
+class Torus(Grid):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
+
+    
+
+    def getPoint(self, x_pos, y_pos):
+        """
+        Here we define the getPoint method for the Torus class. This methods restrieves a requested point
+        based off its coordinates. The torus topology wraps around both edges.
+        """
+
+        x_wrapped = x_pos % self.n_x
+        y_wrapped = y_pos % self.n_y
+
+        return self.grid[x_wrapped, y_wrapped]
+    
+class Cylinder(Grid):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
+
+    
+
+    def getPoint(self, x_pos, y_pos):
+        """
+        Here we define the getPoint method for the Cylinder class. This methods restrieves a requested point
+        based off its coordinates. The cylinder topology wraps around the y edges but is bounded in the x direction.
+        """
+
+        if 0 <= x_pos < self.n_x:
+            y_wrapped = y_pos % self.n_y
+            return self.grid[x_pos, y_wrapped]
+        else:
+            return None
+        
+
+class Mobius(Grid):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
+
+    
+
+    def getPoint(self, x_pos, y_pos):
+        """
+        Here we define the getPoint method for the Mobius class. This methods restrieves a requested point
+        based off its coordinates. The mobius topology wraps around the y edges with a twist and is bounded in the x direction.
+
+        """
+
+def getPoint(self, x_pos, y_pos):
+    """
+    Return the point at (x_pos, y_pos) as if on a Möbius strip.
+    The strip wraps around the y edges with a twist (mirror in x),
+    and is bounded in the x direction.
+    """
+
+    if 0 <= x_pos < self.n_x:
+        if y_pos < 0:
+            y_wrapped = (y_pos % self.n_y)
+            x_wrapped = (self.n_x - 1) - x_pos
+        elif y_pos >= self.n_y:
+            y_wrapped = (y_pos % self.n_y)
+            x_wrapped = (self.n_x - 1) - x_pos
+        else:
+            y_wrapped = y_pos
+            x_wrapped = x_pos
+
+        return self.grid[x_wrapped, y_wrapped]
+    else:
+        return None
+
