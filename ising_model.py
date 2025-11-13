@@ -40,7 +40,23 @@ class ClassicIsing:
 
         self.grid.grid_history.append(copy.deepcopy(self.grid.grid))
 
+    def outputSpins(self):
+                
+        """
+        Outputs the current grid as a 2D array of spins. 
 
+        Returns
+            grid_spins (2D np.array): 2D array of spins representing the current grid state
+        """
+
+        grid_spins = np.zeros(self.grid.grid.shape)
+
+        for i in range(grid_spins.shape[0]):
+            for j in range(grid_spins.shape[1]):
+                grid_spins[i, j] = self.grid.grid[i, j].spin
+        return grid_spins
+    
+        
 
         
     
@@ -66,9 +82,8 @@ class ClassicIsing:
                 point.changeSpin(point.spin * -1)
 
     
-    def magnetization(self):
-
-        return 
+    def changeTemp(self, newTemp):
+        self.temperature = newTemp 
     
     def effective_field(self, i, j, J=1.0, h=0.0):
 
@@ -110,6 +125,12 @@ class ClassicIsing:
 
         for step in range(n_steps):
             self.updateGrid(self.metropolis)
+
+    def magnetization(self):
+        n_x = self.grid.n_x
+        n_y = self.grid.n_y
+        mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
+        return mag 
 
 
     
