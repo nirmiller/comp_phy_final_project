@@ -2,26 +2,36 @@ import numpy as np
 import copy 
 class Grid:
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, keep_history=False):
         
         np.random.seed(random_seed)
 
         self.gridPointObject = gridPointObject
+        self.keep_history = keep_history
 
         self.n_x = n_x
         self.n_y = n_y
 
         if random_init:
-            the_grid = self.initalize_grid()
+            the_grid = self.initialize_grid()
             self.grid = the_grid
-            self.grid_history = [copy.deepcopy(the_grid)]
+            if keep_history:
+                self.grid_history = [copy.deepcopy(the_grid)]
         else:
             self.grid = loadGrid
-            self.grid_history = loadGrid.grid_history
+            if keep_history:
+                self.grid_history = loadGrid.grid_history
+    
+    ### overloaded methods ###
 
+    def __call__(self):
+        return self.grid
 
+    def __str__(self):
+        """String representation of the Grid object."""
+        return str(output(self.grid))
 
-    def initalize_grid(self):
+    def initialize_grid(self):
         spins = np.random.choice([-1, 1], size=(self.n_x, self.n_y))
 
         grid = np.empty((self.n_x, self.n_y), dtype=object)
@@ -29,13 +39,15 @@ class Grid:
             grid[i, j] = self.gridPointObject(i, j, spins[i, j])
 
         return grid
+    
+    ### class methods ###
 
     def getPoint(self, x_pos, y_pos):
 
         """
-        Here we define the getPoint method for the Grid class. This methods restrieves a requested point
-        based off its coordinates. Different grid topologies might implement this differently and will overide this method.
-        The default versian assumes a boudned square grid, meaning any points chosen outside the bound return None. 
+        Here we define the getPoint method for the Grid class. This methods retrieves a requested point
+        based off its coordinates. Different grid topologies might implement this differently and will override this method.
+        The default version assumes a bounded square grid, meaning any points chosen outside the bound return None.
 
         Parameters
             point (Classic Point Object): as a classical Ising model point with a spin
@@ -46,24 +58,24 @@ class Grid:
         else:
             return None
 
-    def output(grid):
-        
-        """
-        Outputs the current grid as a 2D array of spins. 
+def output(grid):
+    
+    """
+    Outputs the current grid as a 2D array of spins. 
 
-        Returns
-            grid_spins (2D np.array): 2D array of spins representing the current grid state
-        """
+    Returns
+        grid_spins (2D np.array): 2D array of spins representing the current grid state
+    """
 
-        grid_spins = np.zeros(grid.shape)
+    grid_spins = np.zeros(grid.shape)
 
-        for i in range(grid_spins.shape[0]):
-            for j in range(grid_spins.shape[1]):
-                grid_spins[i, j] = grid[i, j].spin
-        return grid_spins
+    for i in range(grid_spins.shape[0]):
+        for j in range(grid_spins.shape[1]):
+            grid_spins[i, j] = grid[i, j].spin
+    return grid_spins
     
 
-#We will have a Hole, Mobius, Cylinder, and Torus
+#We will have a Hole, Möbius, Cylinder, and Torus
 class HoleGrid(Grid):
 
     """
@@ -144,7 +156,7 @@ class Torus(Grid):
 
     def getPoint(self, x_pos, y_pos):
         """
-        Here we define the getPoint method for the Torus class. This methods restrieves a requested point
+        Here we define the getPoint method for the Torus class. This methods retrieves a requested point
         based off its coordinates. The torus topology wraps around both edges.
         """
 
@@ -161,7 +173,7 @@ class Cylinder(Grid):
 
     def getPoint(self, x_pos, y_pos):
         """
-        Here we define the getPoint method for the Cylinder class. This methods restrieves a requested point
+        Here we define the getPoint method for the Cylinder class. This methods retrieves a requested point
         based off its coordinates. The cylinder topology wraps around the y edges but is bounded in the x direction.
         """
 
@@ -180,30 +192,30 @@ class Mobius(Grid):
 
     def getPoint(self, x_pos, y_pos):
         """
-        Here we define the getPoint method for the Mobius class. This methods restrieves a requested point
-        based off its coordinates. The mobius topology wraps around the y edges with a twist and is bounded in the x direction.
+        Here we define the getPoint method for the Möbius class. This methods retrieves a requested point
+        based off its coordinates. The Möbius topology wraps around the y edges with a twist and is bounded in the x direction.
 
         """
 
-def getPoint(self, x_pos, y_pos):
-    """
-    Return the point at (x_pos, y_pos) as if on a Möbius strip.
-    The strip wraps around the y edges with a twist (mirror in x),
-    and is bounded in the x direction.
-    """
+    def getPoint(self, x_pos, y_pos):
+        """
+        Return the point at (x_pos, y_pos) as if on a Möbius strip.
+        The strip wraps around the y edges with a twist (mirror in x),
+        and is bounded in the x direction.
+        """
 
-    if 0 <= x_pos < self.n_x:
-        if y_pos < 0:
-            y_wrapped = (y_pos % self.n_y)
-            x_wrapped = (self.n_x - 1) - x_pos
-        elif y_pos >= self.n_y:
-            y_wrapped = (y_pos % self.n_y)
-            x_wrapped = (self.n_x - 1) - x_pos
+        if 0 <= x_pos < self.n_x:
+            if y_pos < 0:
+                y_wrapped = (y_pos % self.n_y)
+                x_wrapped = (self.n_x - 1) - x_pos
+            elif y_pos >= self.n_y:
+                y_wrapped = (y_pos % self.n_y)
+                x_wrapped = (self.n_x - 1) - x_pos
+            else:
+                y_wrapped = y_pos
+                x_wrapped = x_pos
+
+            return self.grid[x_wrapped, y_wrapped]
         else:
-            y_wrapped = y_pos
-            x_wrapped = x_pos
-
-        return self.grid[x_wrapped, y_wrapped]
-    else:
-        return None
+            return None
 
