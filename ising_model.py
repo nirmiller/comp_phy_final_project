@@ -54,7 +54,7 @@ class ClassicIsing:
         #     update_rule(point)
 
         # select NxN random points with a probability of 1/N^2 to apply the update rule to.
-        
+
         N = self.grid.n_x * self.grid.n_y
         for _ in range(N):
             rand_x = np.random.randint(0, self.grid.n_x)
@@ -103,7 +103,7 @@ class ClassicIsing:
             if rand < prob:
                 point.changeSpin(point.spin * -1)
 
-    
+    '''
     def magnetization(self):
         """
         Calculates the total magnetization of the grid.
@@ -112,6 +112,7 @@ class ClassicIsing:
         total_magnetization = np.abs(np.sum(self.grid()) / (self.grid.n_x * self.grid.n_y))
 
         return total_magnetization
+    '''
 
     def changeTemp(self, newTemp):
         self.temperature = newTemp 
@@ -155,11 +156,11 @@ class ClassicIsing:
         for step in range(n_steps):
             self.update(self.metropolis)
 
-    # def magnetization(self):
-    #     n_x = self.grid.n_x
-    #     n_y = self.grid.n_y
-    #     mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
-    #     return mag 
+    def magnetization(self):
+         n_x = self.grid.n_x
+         n_y = self.grid.n_y
+         mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
+         return mag 
 
 
     
