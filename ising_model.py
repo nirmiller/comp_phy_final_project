@@ -155,11 +155,11 @@ class ClassicIsing:
         for step in range(n_steps):
             self.update(self.metropolis)
 
-    def magnetization(self):
-        n_x = self.grid.n_x
-        n_y = self.grid.n_y
-        mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
-        return mag 
+    # def magnetization(self):
+    #     n_x = self.grid.n_x
+    #     n_y = self.grid.n_y
+    #     mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
+    #     return mag 
 
 
     
