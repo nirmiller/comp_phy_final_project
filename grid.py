@@ -2,12 +2,11 @@ import numpy as np
 import copy 
 class Grid:
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, keep_history=False):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
         
         np.random.seed(random_seed)
 
         self.gridPointObject = gridPointObject
-        self.keep_history = keep_history
 
         self.n_x = n_x
         self.n_y = n_y
@@ -15,12 +14,10 @@ class Grid:
         if random_init:
             the_grid = self.initialize_grid()
             self.grid = the_grid
-            if keep_history:
-                self.grid_history = [copy.deepcopy(the_grid)]
+            self.grid_history = [copy.deepcopy(the_grid)]
         else:
             self.grid = loadGrid
-            if keep_history:
-                self.grid_history = loadGrid.grid_history
+            self.grid_history = loadGrid.grid_history
     
     ### overloaded methods ###
 
@@ -29,7 +26,7 @@ class Grid:
 
     def __str__(self):
         """String representation of the Grid object."""
-        return str(output(self.grid))
+        return str(self.output(self.grid))
 
     def initialize_grid(self):
         spins = np.random.choice([-1, 1], size=(self.n_x, self.n_y))
@@ -58,22 +55,22 @@ class Grid:
         else:
             return None
 
-def output(grid):
-    
-    """
-    Outputs the current grid as a 2D array of spins. 
+    def output(self, grid):
+        
+        """
+        Outputs the current grid as a 2D array of spins. 
 
-    Returns
-        grid_spins (2D np.array): 2D array of spins representing the current grid state
-    """
+        Returns
+            grid_spins (2D np.array): 2D array of spins representing the current grid state
+        """
 
-    grid_spins = np.zeros(grid.shape)
+        grid_spins = np.zeros(grid.shape)
 
-    for i in range(grid_spins.shape[0]):
-        for j in range(grid_spins.shape[1]):
-            grid_spins[i, j] = grid[i, j].spin
-    return grid_spins
-    
+        for i in range(grid_spins.shape[0]):
+            for j in range(grid_spins.shape[1]):
+                grid_spins[i, j] = grid[i, j].spin
+        return grid_spins
+        
 
 #We will have a Hole, Möbius, Cylinder, and Torus
 class HoleGrid(Grid):
