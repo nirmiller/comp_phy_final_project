@@ -4,7 +4,7 @@ class Grid:
 
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
         
-        #np.random.seed(random_seed)
+        np.random.seed(random_seed)
 
         self.gridPointObject = gridPointObject
 
