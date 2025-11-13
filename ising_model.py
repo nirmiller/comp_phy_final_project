@@ -54,6 +54,7 @@ class ClassicIsing:
         #     update_rule(point)
 
         # select NxN random points with a probability of 1/N^2 to apply the update rule to.
+        
         N = self.grid.n_x * self.grid.n_y
         for _ in range(N):
             rand_x = np.random.randint(0, self.grid.n_x)
