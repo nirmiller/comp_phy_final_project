@@ -2,11 +2,12 @@ import numpy as np
 import copy 
 class Grid:
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
-        
-        #np.random.seed(random_seed)
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, record_history=False):
+
+        np.random.seed(random_seed)
 
         self.gridPointObject = gridPointObject
+        self.record_history = record_history
 
         self.n_x = n_x
         self.n_y = n_y
@@ -14,10 +15,13 @@ class Grid:
         if random_init:
             the_grid = self.initialize_grid()
             self.grid = the_grid
-            self.grid_history = [copy.deepcopy(the_grid)]
+            if self.record_history:
+                self.grid_history = [copy.deepcopy(the_grid)]
         else:
+            np.random.seed(random_seed)
             self.grid = loadGrid
-            self.grid_history = loadGrid.grid_history
+            if self.record_history:
+                self.grid_history = loadGrid.grid_history
     
     ### overloaded methods ###
 
