@@ -4,7 +4,6 @@ class Grid:
 
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, record_history=False):
 
-        np.random.seed(random_seed)
 
         self.gridPointObject = gridPointObject
         self.record_history = record_history
@@ -32,6 +31,8 @@ class Grid:
         """String representation of the Grid object."""
         return str(self.output(self.grid))
 
+    ### class methods ###
+
     def initialize_grid(self):
         spins = np.random.choice([-1, 1], size=(self.n_x, self.n_y))
 
@@ -40,8 +41,6 @@ class Grid:
             grid[i, j] = self.gridPointObject(i, j, spins[i, j])
 
         return grid
-    
-    ### class methods ###
 
     def getPoint(self, x_pos, y_pos):
 
