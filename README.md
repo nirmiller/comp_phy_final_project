@@ -1,5 +1,4 @@
 # comp_phy_final_project
-<<<<<<< HEAD
 
 This is the final project for the Computaional Phsyics (PHY329) Fall 2025.
 
