@@ -175,7 +175,7 @@ class HoleGrid(Grid):
             return None if value.spin == 0 else value
     
     def resetGrid(self):
-        """Resets the grid to a new random initial configuration. Maintains the original hole structure."""
+        """Overridden resetGrid method to account for the hole."""
         if self.random_init:
             new_grid = self.initialize_grid()
 
@@ -240,9 +240,6 @@ class Torus(Grid):
 
         return self.grid[x_wrapped, y_wrapped]
     
-    def resetGrid(self):
-        raise NotImplementedError("resetGrid method not implemented for Torus topology.")
-    
 class Cylinder(Grid):
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=True):
         super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=record_history)
@@ -260,9 +257,6 @@ class Cylinder(Grid):
             return self.grid[x_pos, y_wrapped]
         else:
             return None
-    
-    def resetGrid(self):
-        raise NotImplementedError("resetGrid method not implemented for Cylinder topology.")
         
 
 class Mobius(Grid):
@@ -308,7 +302,4 @@ class Mobius(Grid):
             return self.grid[x_wrapped, y_wrapped]
         else:
             return None
-    
-    def resetGrid(self):
-        raise NotImplementedError("resetGrid method not implemented for Möbius topology.")
 
