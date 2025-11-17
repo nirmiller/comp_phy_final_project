@@ -2,7 +2,7 @@ import numpy as np
 import copy 
 class Grid:
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, record_history=False):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=False):
 
 
         self.gridPointObject = gridPointObject
