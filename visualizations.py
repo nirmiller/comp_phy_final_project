@@ -24,14 +24,14 @@ def plot_spin_orient(grid, title='Spin Orientations'):
     plt.tight_layout()
     plt.show()
 
-def animate_ising(grid_object, grid_history, time=50, title="Ising Model Evolution"):
+def animate_ising(grid_object, grid_history, interval=50, title="Ising Model Evolution"):
     """
     Creates an animation of the Ising model evolution.
     
     Parameters:
         grid_object: Grid, HoleGrid, Mobius, Cylinder, or Torus
         grid_history: grid's evolution
-        time: time in milliseconds between frames
+        interval: time in milliseconds between frames
         title: title of the animation
     """
     fig, ax = plt.subplots(figsize=(6, 6))
@@ -57,7 +57,7 @@ def animate_ising(grid_object, grid_history, time=50, title="Ising Model Evoluti
         title_text.set_text(f'{title}: Step {frame}')
         return [im, title_text]
     
-    ani = FuncAnimation(fig, update, frames=len(grid_history), interval=time, blit=True, repeat=True)
+    ani = FuncAnimation(fig, update, frames=len(grid_history), interval=interval, blit=True, repeat=True)
     
     plt.tight_layout()
     return ani
