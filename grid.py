@@ -2,10 +2,11 @@ import numpy as np
 import copy 
 class Grid:
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None):
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=True):
 
 
         self.gridPointObject = gridPointObject
+        self.record_history = record_history
         self.loadGrid = loadGrid
 
         self.n_x = n_x
@@ -20,10 +21,12 @@ class Grid:
         if random_init:
             the_grid = self.initialize_grid()
             self.grid = the_grid
-            self.grid_history = [copy.deepcopy(the_grid)]
+            if self.record_history:
+                self.grid_history = [copy.deepcopy(the_grid)]
         else:
             self.grid = self.loadGrid
-            self.grid_history = self.loadGrid.grid_history
+            if self.record_history:
+                self.grid_history = self.loadGrid.grid_history
 
     ### overloaded methods ###
 
@@ -83,10 +86,12 @@ class Grid:
         """
         if self.random_init:
             self.grid = self.initialize_grid()
-            self.grid_history = [copy.deepcopy(self.grid)]
+            if self.record_history:
+                self.grid_history = [copy.deepcopy(self.grid)]
         else:
             self.grid = self.loadGrid.grid
-            self.grid_history = self.loadGrid.grid_history
+            if self.record_history:
+                self.grid_history = self.loadGrid.grid_history
         
 
 #We will have a Hole, Möbius, Cylinder, and Torus
@@ -106,6 +111,10 @@ class HoleGrid(Grid):
         c_y (int): y-coordinate of the center of the hole (optional)
     
     """
+
+
+
+
 
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, hole_grid=None, c_x = None, c_y = None):
         super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
