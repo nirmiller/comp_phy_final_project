@@ -63,8 +63,7 @@ class ClassicIsing:
             if point is not None:
                 update_rule(point)
                 
-        if self.grid.record_history:
-            self.grid.grid_history.append(copy.deepcopy(self.grid.grid))
+        self.grid.grid_history.append(copy.deepcopy(self.grid.grid))
             
     def outputSpins(self):
                 
