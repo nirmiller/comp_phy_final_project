@@ -96,8 +96,8 @@ class ClassicIsing:
             point (Classic Point Object): as a classical Ising model point with a spin
         """
         effective_field = self.effective_field(point.x, point.y, self.ferromagnetivity, self.ExternalMagneticField)
-        
-        if point.changeInEnergy(effective_field) < 0:
+        # jason note: changed to <= from < to allow for zero energy changes to always flip
+        if point.changeInEnergy(effective_field) <= 0:
             point.changeSpin(point.spin * -1)
         else:
             prob = np.exp(-point.changeInEnergy(effective_field) / (self.Boltzmann * self.temperature))
@@ -154,7 +154,8 @@ class ClassicIsing:
         Parameters:
             n_steps (int): Number of simulation steps to run
         """
-
+        if n_steps <= 0:
+            return
         for step in range(n_steps):
             self.update(self.metropolis)
 
@@ -164,5 +165,8 @@ class ClassicIsing:
     #      mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
     #      return mag 
 
-
-    
+    def resetSimulation(self):
+        """
+        Resets the grid.
+        """
+        self.grid.resetGrid()
