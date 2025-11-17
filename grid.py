@@ -125,9 +125,8 @@ class HoleGrid(Grid):
     
     """
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, hole_grid=None, c_x = None, c_y = None):
-        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=True)
-        
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, hole_grid=None, c_x = None, c_y = None, record_history=True):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=record_history)
 
         self.hole_grid = hole_grid
         self.c_x = c_x
@@ -227,10 +226,8 @@ class Torus(Grid):
         loadGrid (Grid): An existing Grid object to load from
     """
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
-        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
-
-    
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=True):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=record_history)
 
     def getPoint(self, x_pos, y_pos):
         """
@@ -247,8 +244,8 @@ class Torus(Grid):
         raise NotImplementedError("resetGrid method not implemented for Torus topology.")
     
 class Cylinder(Grid):
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
-        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=True):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=record_history)
 
     
 
@@ -280,8 +277,8 @@ class Mobius(Grid):
         loadGrid (Grid): An existing Grid object to load from
     """
 
-    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
-        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
+    def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=True):
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=record_history)
 
     def getPoint(self, x_pos, y_pos):
         """
