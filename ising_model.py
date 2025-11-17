@@ -9,7 +9,8 @@ class ClassicIsing:
     Parameters
         grid (Grid Object): The Grid object with topology 
         temperature (float): The temperature of the system
-        ferromagnetivity (float): Coupling strength of magnetic moments. 
+        ferromagnetivity (float): Coupling strength of magnetic moments.
+        Mf_External (float): External magnetic field applied to the system
     """
 
     def __init__(self, grid, temperature, ferromagnetivity, Mf_External):
