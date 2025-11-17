@@ -1,10 +1,22 @@
 import numpy as np
 import copy 
 class Grid:
+    """
+    Represents a 2D grid of points for the Ising model.
+
+    Parameters
+        n_x (int): Number of grid points in the x direction
+        n_y (int): Number of grid points in the y direction
+        gridPointObject (Class): The class object representing a grid point
+        random_init (bool): Whether to initialize the grid randomly
+        random_seed (int): Seed for random number generation
+        loadGrid (Grid): An existing Grid object to load from
+        record_history (bool): Whether to record the history of grid states over time
+    """
 
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=None, loadGrid=None, record_history=False):
 
-
+        
         self.gridPointObject = gridPointObject
         self.record_history = record_history
         self.loadGrid = loadGrid
@@ -98,6 +110,7 @@ class Grid:
 class HoleGrid(Grid):
 
     """
+    Represents a 2D grid of points for the Ising model with a hole.
 
     Parameters:
         n_x (int): Number of grid points in the x direction
@@ -112,12 +125,8 @@ class HoleGrid(Grid):
     
     """
 
-
-
-
-
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None, hole_grid=None, c_x = None, c_y = None):
-        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
+        super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid, record_history=True)
         
 
         self.hole_grid = hole_grid
@@ -167,11 +176,57 @@ class HoleGrid(Grid):
             return None if value.spin == 0 else value
     
     def resetGrid(self):
-        """Resets the grid to a new random configuration if random_init is True. Maintains the hole structure."""
-        raise NotImplementedError("resetGrid method not implemented for HoleGrid topology.")
+        """Resets the grid to a new random initial configuration. Maintains the original hole structure."""
+        if self.random_init:
+            new_grid = self.initialize_grid()
+
+            if self.hole_grid is None:
+                cx, cy = self.n_x // 2, self.n_y // 2
+                size = 3 if self.n_x >= 3 and self.n_y >= 3 else 1
+                half = size // 2
+
+                x_slice = slice(max(0, cx - half), min(self.n_x, cx + half + 1))
+                y_slice = slice(max(0, cy - half), min(self.n_y, cy + half + 1))
+                new_grid[x_slice, y_slice] = self.hole_point
+
+            else:
+                hole_h, hole_w = self.hole_grid.shape
+                cx = self.n_x // 2 if self.c_x is None else self.c_x
+                cy = self.n_y // 2 if self.c_y is None else self.c_y
+
+                hx0 = max(0, cx - hole_h // 2)
+                hy0 = max(0, cy - hole_w // 2)
+                hx1 = min(self.n_x, hx0 + hole_h)
+                hy1 = min(self.n_y, hy0 + hole_w)
+
+                hole_slice_x = slice(0, hx1 - hx0)
+                hole_slice_y = slice(0, hy1 - hy0)
+
+                mask = self.hole_grid[hole_slice_x, hole_slice_y] != 0
+                new_grid[hx0:hx1, hy0:hy1][mask] = self.hole_point
+
+            self.grid = new_grid
+
+            if self.record_history:
+                self.grid_history = [copy.deepcopy(new_grid)]
+        else:
+            self.grid = self.loadGrid.grid
+            if self.record_history:
+                self.grid_history = self.loadGrid.grid_history
 
 
 class Torus(Grid):
+    """
+    Represents a 2D grid of points for the Ising model with a torus topology.
+    Parameters
+        n_x (int): Number of grid points in the x direction
+        n_y (int): Number of grid points in the y direction
+        gridPointObject (Class): The class object representing a grid point
+        random_init (bool): Whether to initialize the grid randomly
+        random_seed (int): Seed for random number generation
+        loadGrid (Grid): An existing Grid object to load from
+    """
+
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
         super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
 
@@ -214,6 +269,17 @@ class Cylinder(Grid):
         
 
 class Mobius(Grid):
+    """
+    Represents a 2D grid of points for the Ising model with a Möbius strip topology.
+    Parameters
+        n_x (int): Number of grid points in the x direction
+        n_y (int): Number of grid points in the y direction
+        gridPointObject (Class): The class object representing a grid point
+        random_init (bool): Whether to initialize the grid randomly
+        random_seed (int): Seed for random number generation
+        loadGrid (Grid): An existing Grid object to load from
+    """
+
     def __init__(self, n_x, n_y, gridPointObject, random_init=True, random_seed=1, loadGrid=None):
         super().__init__(n_x, n_y, gridPointObject, random_init, random_seed, loadGrid)
 
