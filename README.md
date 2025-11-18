@@ -81,7 +81,6 @@ Grid class and topology definitions:
 - How does **net magnetization** change under different **topologies**?
 - How does it behave in the **quantum model (TFIM)**?
 - How does magnetization differ across **dimensionalities**?
-
 ---
 
 ## 🔗 References and Resources
@@ -104,10 +103,36 @@ The project’s goal is to understand how **geometry and quantum effects** influ
 ---
 
 
+# Project Results
+
+The Ising model was implemented using several different lattice topologies: None (open boundaries), Hole, Cylinder, Möbius Strip, and Torus. Below, we present video results and plots of temperature versus magnetization. We also identify the critical temperature observed in each topology.
+
+## Normal Grid
+
+Video of the evolution of the Ising Model on a normal grid with temperature = 1 K and a couplig constant of .1:
+
+![alt text](animations/ising_evolution_regular.gif)
+
+![alt text](animations/image-1.png)
+
+## Hole Grid
+
+This topology involved adding a hole to our lattice. 
+
+![alt text](animations/ising_evolution_hole.gif)
+![alt text](animations/image-2.png)
+
+## Cylinder Grid
+
+![alt text](animations/ising_evolution_cylinder.gif)
+
+![alt text](animations/image-4.png)
+
+## Mobius Grid
+
+![alt text](animations/ising_evolution_mobius.gif)
+![alt text](animations/image-3.png)
 
 
- 
-=======
-
-
-
+## Torus Grid
+![alt text](animations/ising_evolution_torus.gif)![alt text](animations/image-5.png)
