@@ -194,7 +194,6 @@ class TransverseIsing:
     def __init__(self, n, coupling_strength, term_strength, rand_init=False, load_history=None, load_state=None):
         
         self.n = n
-
         self.J = coupling_strength
         self.h = term_strength
         
@@ -216,7 +215,7 @@ class TransverseIsing:
         else:
             self.state_history = [self.state_vector.copy()]
 
-    def step(self):
+    def calculateStep(self):
 
         newState = np.zeros_like(self.state_vector, dtype=complex)
 
@@ -249,9 +248,46 @@ class TransverseIsing:
 
                 newState[flipped_bit] += -self.h * amp
 
+        return newState
+    
+    def eularUpdate(self, dt):
+
+        #Eular Update
+
+        self.state_vector += self.calculateStep()*dt*1j 
+
+        self.state_vector /= np.linalg.norm(self.state_vector)
+
+        self.state_history.append(self.state_vector.copy())
+
+
+    def runSimulation(self, n_steps=1000, dt=.001):
+
+        """
+        Runs the Tranverse Field Ising model simulation for a given number of steps.
+
+        Parameters:
+            n_steps (int): Number of simulation steps to run
+        """
+        if n_steps <= 0:
+            return
+        for step in range(n_steps):
+            self.eularUpdate(dt)
+
+    def magnetization(self):
         
+        z = np.array([1, -1])  # 0 -> +1, 1 -> -1
+        Mz_total = 0
 
+        for idx, amp in enumerate(self.state_vector):
+            prob = np.abs(amp)**2  # probability of being in this basis state
+            for i_qubit in range(self.n):
+                bi = (idx >> i_qubit) & 1
+                Mz_total += z[bi] * prob
 
+        Mz = Mz_total / self.n
+
+        return Mz
 
 
 

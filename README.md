@@ -93,14 +93,24 @@ Grid class and topology definitions:
 
 ## Summary
 
-We aim to:
+We accomplished :
 - Simulate the **classical Ising model** with various **couplings and topologies**  
 - Quantify how **magnetization** depends on **temperature**, **geometry**, and **interaction strength**  
-- Optionally extend to a **quantum model (TFIM)** to compare classical vs. quantum behavior  
+- Added a Tranverse Field (Quantum) Ising Model and magnetization observables
 
 The project’s goal is to understand how **geometry and quantum effects** influence **collective magnetic order** and **phase transitions** in coupled spin systems.
 
 ---
+
+# How to run
+
+1.) Run pip install -r req.txt to install all packages. Make sure for all notebooks to press restart then Run All. 
+
+2.) There are several notebooks to explore. Go to the demo.ipynb to run the basic simulation (no visualizations) for the quantum ising model and topological classical ising model.
+
+3.) Run stats_n_graphs.ipynb to run magnetization vs temperature graphs/ tests
+
+4.) demo_animations.ipynb to download cool animations for the topological ising models.
 
 
 # Project Results
