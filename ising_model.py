@@ -171,3 +171,95 @@ class ClassicIsing:
         Resets the grid.
         """
         self.grid.resetGrid()
+
+
+class TransverseIsing:
+
+    """
+        Basic implementation of a Quantum Ising Model, more specifically the Transverse Ising model.
+        The tranverse field ising model applies two sets of pauli matrices to the spins in the system. 
+        The first set is a pauli X applied to each qubit individually. The second set of terms is a coupled pauli Z applied
+        between each qubit. 
+
+
+        H = sum(X)
+
+        Parameters
+            state_vector (array) - a vector of complex amplitudes representing our current state
+            n (integer) - n number of qubits
+            rand_int (boolean) - assigns random values or not to state vector
+            load_history (array) - loads in a history of the state vector
+    """
+
+    def __init__(self, n, coupling_strength, term_strength, rand_init=False, load_history=None, load_state=None):
+        
+        self.n = n
+
+        self.J = coupling_strength
+        self.h = term_strength
+        
+
+
+        if load_state is not None:
+            self.state_vector = load_state
+        else:
+            if rand_init:
+                rand_amps = np.random.rand(2**n) + 1j * np.random.rand(2**n)
+                norm = np.linalg.norm(rand_amps)
+                self.state_vector = rand_amps / norm
+            else:
+                self.state_vector = np.zeros(2**n, dtype=complex)
+                self.state_vector[0] = 1.0 + 0.0j 
+
+        if load_history is not None:
+            self.state_history = load_history
+        else:
+            self.state_history = [self.state_vector.copy()]
+
+    def step(self):
+
+        newState = np.zeros_like(self.state_vector, dtype=complex)
+
+
+        #Coupling Terms
+
+        z = [1, -1]  # maps bit 0 -> +1, bit 1 -> -1
+
+        for idx, amp in enumerate(self.state_vector):
+            total = 0
+            #Applying Pauli Z to state vector 
+            for i_qubit in range(self.n):
+
+                j_qubit = (i_qubit + 1) % self.n
+
+                bi = (idx >> i_qubit) & 1
+                bj = (idx >> j_qubit) & 1
+                total += -self.J * z[bi] * z[bj]
+                
+            newState[idx] += total * amp
+
+        #Non-coupling Terms (Tranverse Effect)
+
+        for idx, amp in enumerate(self.state_vector):
+
+            #Applying Pauli X to state vector
+            for i_qubit in range(self.n):
+            
+                flipped_bit = idx ^ (1 << i_qubit)
+
+                newState[flipped_bit] += -self.h * amp
+
+        
+
+
+
+
+
+
+
+
+        
+
+
+
+    
