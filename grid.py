@@ -92,14 +92,18 @@ class Grid:
                 grid_spins[i, j] = grid[i, j].spin
         return grid_spins
     
-    def resetGrid(self):
+    def resetGrid(self, grid=None):
         """
-        Resets the grid to a new random configuration if random_init is True. Else, returns the loaded grid. 
+        Resets the grid to a new random configuration if random_init is True. if random_init is False, returns the loaded grid. If grid is provided, it sets the grid to that configuration.
         """
         if self.random_init:
             self.grid = self.initialize_grid()
             if self.record_history:
                 self.grid_history = [copy.deepcopy(self.grid)]
+        elif grid is not None:
+            self.grid = grid
+            if self.record_history:
+                self.grid_history = [copy.deepcopy(grid)]
         else:
             self.grid = self.loadGrid.grid
             if self.record_history:

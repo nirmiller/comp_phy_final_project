@@ -146,11 +146,14 @@ class ClassicIsing:
         for step in range(n_steps):
             self.update(self.metropolis)
 
-    def resetSimulation(self):
+    def resetSimulation(self, grid=None):
         """
         Resets the grid to a new random start if desired.
         """
-        self.grid.resetGrid()
+        if grid is not None:
+            self.grid.resetGrid(grid)
+        else:
+            self.grid.resetGrid()
 
 
 class TransverseIsing:
