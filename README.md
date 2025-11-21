@@ -108,7 +108,7 @@ The classic spin Ising model is a popular toy model for many physical and stasti
 
 The Hamilitonian for the Ising model is given by:
 
-![alt text](image.png)
+![alt text](animations/equation_4.png)
 
 J defines the coupling strength between local spins and h is the external magnetic strength. 
 
@@ -124,15 +124,15 @@ The global aggregation of spins determine the overall "magnetization" of the spi
 
 The Metropolis update rule provokes groups of uniformly spinning points to alter nearby points with opposite spins. Per update iteration a point is randomly selected within the grid. Then the local energy is sampled between the four adjacent points near the selected point. If the overall energy of changing the selected spin is less then the current energy of the state, then the point flips its spin. Otherwise, the points flips according to a Boltzmann probability distrubtion.  
 
-![alt text](image-1.png)
+![alt text](animations/equation_1.png)
 
 Where 
 
-![alt text](image-2.png)
+![alt text](animations/equation_2.png)
 
 and 
 
-![alt text](image-3.png)
+![alt text](animations/equation_3.png)
 
 The (T) refers to temperature, which is a parameter that can be inputted into our model. 
 ---
