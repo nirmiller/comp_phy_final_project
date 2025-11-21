@@ -40,22 +40,7 @@ class ClassicIsing:
             update_rule (method): Takes in an update rule to change grid between time steps
         """
 
-        # apply the update rule to every point in the grid
-        # for i in range(self.grid.n_x):
-        #     for j in range(self.grid.n_y):
-        #         point = self.grid.getPoint(i, j)
-        #         if point != None:
-        #             update_rule(point)
-
-        # # select a random point and apply the update rule to that point
-        # rand_x = np.random.randint(0, self.grid.n_x)
-        # rand_y = np.random.randint(0, self.grid.n_y)
-        # point = self.grid.getPoint(rand_x, rand_y)
-        # if point is not None:
-        #     update_rule(point)
-
         # select NxN random points with a probability of 1/N^2 to apply the update rule to.
-
         N = self.grid.n_x * self.grid.n_y
         for _ in range(N):
             rand_x = np.random.randint(0, self.grid.n_x)
@@ -118,7 +103,8 @@ class ClassicIsing:
     
 
     def changeTemp(self, newTemp):
-        self.temperature = newTemp 
+        self.temperature = newTemp
+        return self 
     
     def effective_field(self, i, j, J=1.0, h=0.0):
 
@@ -160,17 +146,14 @@ class ClassicIsing:
         for step in range(n_steps):
             self.update(self.metropolis)
 
-    # def magnetization(self):
-    #      n_x = self.grid.n_x
-    #      n_y = self.grid.n_y
-    #      mag = np.absolute(np.sum(self.outputSpins()))/(n_x*n_y)
-    #      return mag 
-
-    def resetSimulation(self):
+    def resetSimulation(self, grid=None):
         """
-        Resets the grid.
+        Resets the grid to a new random start if desired.
         """
-        self.grid.resetGrid()
+        if grid is not None:
+            self.grid.resetGrid(grid)
+        else:
+            self.grid.resetGrid()
 
 
 class TransverseIsing:
@@ -288,8 +271,6 @@ class TransverseIsing:
         Mz = Mz_total / self.n
 
         return Mz
-
-
 
 
 
