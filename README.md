@@ -19,9 +19,9 @@ This project simulates the **classical Ising model**, a widely used toy model fo
 
 ---
 
-## Planned Directory Structure
+## Directory Structure
 # ising_model.py
-Main Ising model class (classical and/or quantum):
+Main Ising model class (classical and quantum):
 - Methods for magnetization
 - Visual aids
 - Overridden update rules
@@ -30,8 +30,10 @@ Main Ising model class (classical and/or quantum):
 Grid class and topology definitions:
 - Update rules
 - Grid initialization methods
-#demo.ipynb 
-- All simulations and visual results (graphs, grids, etc.)
+# demo_animations.ipynb 
+- All simulations with animations
+# stats_n_graphs.ipynb
+- All the statistics and graphs used to get project results
 # README.md 
 - Summary of results and background research
 
@@ -52,7 +54,7 @@ Grid class and topology definitions:
 
 4. **Run statistical tests** on the results to quantify differences between topologies and coupling parameters.
 
-5. **(Optional Extension)**: Implement a **Quantum Ising Model** — the *Transverse-Field Ising Model (TFIM)* — to explore quantum effects on magnetization and phase transitions.
+5. **Implement a Quantum Ising Model** — the *Transverse-Field Ising Model (TFIM)* — to explore quantum effects on magnetization and phase transitions.
 
 ---
 
@@ -142,7 +144,7 @@ The (T) refers to temperature, which is a parameter that can be inputted into ou
 
 2.) There are several notebooks to explore. Go to the demo.ipynb to run the basic simulation (no visualizations) for the quantum ising model and topological classical ising model.
 
-3.) Run stats_n_graphs.ipynb to run magnetization vs temperature graphs/ tests
+3.) Run stats_n_graphs.ipynb to run magnetization vs temperature graphs/tests
 
 4.) demo_animations.ipynb to download cool animations for the topological ising models.
 
@@ -169,11 +171,13 @@ This topology involved adding a hole to our lattice.
 ![alt text](animations/images.png)
 
 ![alt text](animations/ising_evolution_hole.gif)
+
 ![alt text](animations/image-2.png)
 
 ## Cylinder Grid
 
 ![alt text](animations/cylcolor.gif)
+
 ![alt text](animations/ising_evolution_cylinder.gif)
 
 ![alt text](animations/image-4.png)
@@ -181,11 +185,16 @@ This topology involved adding a hole to our lattice.
 ## Mobius Grid
 
 ![alt text](animations/Moebius_Surface_1_Display_Small.png)
+
 ![alt text](animations/ising_evolution_mobius.gif)
+
 ![alt text](animations/image-3.png)
 
 
 ## Torus Grid
 
 ![alt text](animations/download.jpeg)
-![alt text](animations/ising_evolution_torus.gif)![alt text](animations/image-5.png)
+
+![alt text](animations/ising_evolution_torus.gif)
+
+![alt text](animations/image-5.png)
