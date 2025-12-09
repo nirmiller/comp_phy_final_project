@@ -23,17 +23,23 @@ This project simulates the **classical Ising model**, a widely used toy model fo
 # ising_model.py
 Main Ising model class (classical and quantum):
 - Methods for magnetization
-- Visual aids
 - Overridden update rules
 - Simulation initialization
 # grid.py 
 Grid class and topology definitions:
 - Update rules
 - Grid initialization methods
+# visualization.py
+Animation definitions
+# electron.py
+Classic electron definitions
+# equilibrator.py
+Equilibration definitions
 # demo_animations.ipynb 
 - All simulations with animations
+- (see demo.ipynb for demo without animations)
 # stats_n_graphs.ipynb
-- All the statistics and graphs used to get project results
+- All statistics and graphs used to get project results
 # README.md 
 - Summary of results and background research
 
@@ -62,11 +68,11 @@ Grid class and topology definitions:
 
 - **Jason** — Run simulations, develop graphs of net magnetization vs. system parameters, and perform statistical analyses to quantify effects of topology and coupling.
 - **Nir** — Build the `ising_model.py` and `grid.py` classes, implement update rules and initialization logic.
-- **Olivia** — Develop visual simulations (images, animations, and videos), and handle code documentation and presentation.
+- **Olivia** — Develop visual simulations (images and animations), and handle code documentation and presentation.
 
 ---
 
-## Methods & Planned Analyses
+## Methods & Analyses
 
 ### Core Model
 - Classical Ising model using the **Metropolis algorithm** and **NumPy**
@@ -157,9 +163,13 @@ The Ising model was implemented using several different lattice topologies: None
 
 ![alt text](animations/flat_grid_img.png)
 
-Video of the evolution of the Ising Model on a normal grid with temperature = 1 K and a couplig constant of .1:
+Video of the evolution of the Ising Model on a normal grid with temperature of 1 K and a coupling constant of .1:
 
 ![alt text](animations/ising_evolution_regular.gif)
+
+Video of the evolution of the Ising Model on a normal grid with temperature of 1 K, coupling constant of 1, and larger grid
+
+![alt text](animations\equilibrium_evolution.gif)
 
 ![alt text](animations/image-1.png)
 

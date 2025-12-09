@@ -11,13 +11,13 @@ def plot_spin_orient(grid, title='Spin Orientations'):
     """
     Plots a color map, indicating the spin orientation (up or down) of the grid.
     """
-    cmap = mcolors.ListedColormap(['indigo', 'lightgray', 'gold']) # indigo = down, grey = neither, yellow = up
     plt.figure(figsize=(6, 6))
+    cmap = mcolors.ListedColormap(['indigo', 'lightgray', 'gold']) # indigo = down, grey = neither, yellow = up
     bounds = [-1.5, -0.5, 0.5, 1.5] # need this for labelling the ticks
     norm = mcolors.BoundaryNorm(bounds, cmap.N)
     
-    plt.imshow(grid, cmap=cmap)
-    cbar = plt.colorbar(ticks=[-1, 0, 1])
+    plt.imshow(grid, cmap=cmap, norm=norm)
+    cbar = plt.colorbar(ticks=[-1, 0, 1], shrink=0.8, aspect=20)
     cbar.set_ticklabels(['down', 'neither', 'up'])
     cbar.ax.minorticks_off()
     plt.title(title)
