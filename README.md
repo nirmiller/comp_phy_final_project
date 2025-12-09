@@ -168,7 +168,6 @@ Video of the evolution of the Ising Model on a normal grid with temperature of 1
 ![alt text](animations/ising_evolution_regular.gif)
 
 Video of the evolution of the Ising Model equilibrating on a normal grid with temperature of 1 K, a coupling constant of 1, and a larger grid
-
 ![alt text](animations\equilibrium_evolution.gif)
 
 ![alt text](animations/image-1.png)
