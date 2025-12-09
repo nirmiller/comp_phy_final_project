@@ -1,6 +1,6 @@
 # comp_phy_final_project
 
-This is the final project for the Computaional Phsyics (PHY329) Fall 2025.
+This is the final project for the Computational Physics (PHY329) Fall 2025.
 
 # Authors:
 
@@ -8,7 +8,7 @@ This is the final project for the Computaional Phsyics (PHY329) Fall 2025.
 - Jason May
 - Olivia Castillo
 
-All exceptional physcists from the University of Texas at Austin 🤘🧡
+All exceptional physicists from the University of Texas at Austin 🤘🧡
 
 
 # The Ising Model in Different Topologies and Couplings
@@ -45,7 +45,7 @@ Equilibration definitions
 
 ---
 
-## Planned Steps
+## Steps
 
 1. **Simulate** the classical Ising model using the **Metropolis update rule** on a 2D grid (implemented in NumPy).  
    Example steps:
@@ -104,7 +104,7 @@ Equilibration definitions
 We accomplished :
 - Simulate the **classical Ising model** with various **couplings and topologies**  
 - Quantify how **magnetization** depends on **temperature**, **geometry**, and **interaction strength**  
-- Added a Tranverse Field (Quantum) Ising Model and magnetization observables
+- Added a Transverse Field (Quantum) Ising Model and magnetization observables
 
 The project’s goal is to understand how **geometry and quantum effects** influence **collective magnetic order** and **phase transitions** in coupled spin systems.
 
@@ -112,17 +112,17 @@ The project’s goal is to understand how **geometry and quantum effects** influ
 
 # Background
 
-The classic spin Ising model is a popular toy model for many physical and stastical phenomena, with wide range usage in physics, stastics, optimization, quantum computing, material science, and more. 
+The classic spin Ising model is a popular toy model for many physical and statistical phenomena, with wide range usage in physics, statistics, optimization, quantum computing, material science, and more. 
 
-The Hamilitonian for the Ising model is given by:
+The Hamiltonian for the Ising model is given by:
 
 ![alt text](animations/equation_4.png)
 
-J defines the coupling strength between local spins and h is the external magnetic strength. 
+J defines the coupling strength between local spins, and h is the external magnetic strength. 
 
-A NxN grid (theoritically N is infinite) is initalized with randomly selected spinning points. The points can either spin up or down. In the classic model, the points are electrons, with some dipole moment. 
+An NxN grid (theoretically N is infinite) is initialized with randomly selected spinning points. The points can either spin up or down. In the classic model, the points are electrons, with some dipole moment. 
 
-The global aggregation of spins determine the overall "magnetization" of the spin system, which measures the net spin direction of the system. Locally spins may alter one another following the Metropolis algorithm. 
+The global aggregation of spins determines the overall "magnetization" of the spin system, which measures the net spin direction of the system. Locally spins may alter one another following the Metropolis algorithm. 
 
 ![alt text](animations/2D_ising_model_on_lattice.svg.png)
 
@@ -130,7 +130,7 @@ The global aggregation of spins determine the overall "magnetization" of the spi
 ## Metropolis Rule: 
 
 
-The Metropolis update rule provokes groups of uniformly spinning points to alter nearby points with opposite spins. Per update iteration a point is randomly selected within the grid. Then the local energy is sampled between the four adjacent points near the selected point. If the overall energy of changing the selected spin is less then the current energy of the state, then the point flips its spin. Otherwise, the points flips according to a Boltzmann probability distrubtion.  
+The Metropolis update rule provokes groups of uniformly spinning points to alter nearby points with opposite spins. Per update iteration, a point is randomly selected within the grid. Then the local energy is sampled between the four adjacent points near the selected point. If the overall energy of changing the selected spin is less than the current energy of the state, then the point flips its spin. Otherwise, the point flips according to a Boltzmann probability distribution.  
 
 ![alt text](animations/equation_1.png)
 
@@ -142,7 +142,7 @@ and
 
 ![alt text](animations/equation_3.png)
 
-The (T) refers to temperature, which is a parameter that can be inputted into our model. 
+The (T) refers to temperature, which is a parameter that can be inputed into our model. 
 ---
 # How to run
 
@@ -167,7 +167,7 @@ Video of the evolution of the Ising Model on a normal grid with temperature of 1
 
 ![alt text](animations/ising_evolution_regular.gif)
 
-Video of the evolution of the Ising Model on a normal grid with temperature of 1 K, coupling constant of 1, and larger grid
+Video of the evolution of the Ising Model on a normal grid with temperature of 1 K, a coupling constant of 1, and a larger grid
 
 ![alt text](animations\equilibrium_evolution.gif)
 
