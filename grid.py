@@ -1,5 +1,6 @@
 import numpy as np
 import copy 
+
 class Grid:
     """
     Represents a 2D grid of points for the Ising model.
