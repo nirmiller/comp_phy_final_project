@@ -58,15 +58,13 @@ Equilibration definitions
 
 3. **Introduce different topologies** (e.g., holes, modified boundaries) and repeat simulations to compare how topology affects magnetization.
 
-4. **Run statistical tests** on the results to quantify differences between topologies and coupling parameters.
-
-5. **Implement a Quantum Ising Model** — the *Transverse-Field Ising Model (TFIM)* — to explore quantum effects on magnetization and phase transitions.
+4. **Implement a Quantum Ising Model** — the *Transverse-Field Ising Model (TFIM)* — to explore quantum effects on magnetization and phase transitions.
 
 ---
 
 ## 👥 Team Contributions
 
-- **Jason** — Run simulations, develop graphs of net magnetization vs. system parameters, and perform statistical analyses to quantify effects of topology and coupling.
+- **Jason** — Run simulations, develop graphs of net magnetization vs. system parameters.
 - **Nir** — Build the `ising_model.py` and `grid.py` classes, implement update rules and initialization logic.
 - **Olivia** — Develop visual simulations (images and animations), and handle code documentation and presentation.
 
